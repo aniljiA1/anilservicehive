@@ -4,6 +4,11 @@ A full-stack Lead Management Dashboard built with the **MERN stack + TypeScript*
 
 ---
 
+## Live
+Deploy: https://anilservicehive.vercel.app
+
+---
+
 ## ✨ Features
 
 ### Core
@@ -297,6 +302,15 @@ Toggle via the sidebar button. Preference is saved to `localStorage` and respect
 
 ---
 
-## 📄 License
+## Deploy:
+Frontend: https://anilservicehive.vercel.app
+Backend: https://anilservicehive.onrender.com/health
 
-MIT
+----
+
+## Author
+**Anil Kumar**
+
+---
+
+
