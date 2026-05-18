@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7-jammy
+    container_name: smart-leads-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: smart-leads
+    networks:
+      - smart-leads-network
+
+  backend:
+    build:
+      context: ./backend
+      target: production
+    container_name: smart-leads-backend
+    restart: unless-stopped
+    ports:
+      - "5004:5000"
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: production
+      PORT: 5004
+      MONGODB_URI: mongodb+srv://aniljiA1:anil12345@cluster0.txfk47d.mongodb.net/?appName=Cluster0
+      JWT_SECRET: ${JWT_SECRET:-change_this_in_production_super_secret_key}
+      JWT_EXPIRES_IN: 7d
+      FRONTEND_URL: http://localhost
+    networks:
+      - smart-leads-network
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+    container_name: smart-leads-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - smart-leads-network
+
+volumes:
+  mongo_data:
+
+networks:
+  smart-leads-network:
+    driver: bridge
